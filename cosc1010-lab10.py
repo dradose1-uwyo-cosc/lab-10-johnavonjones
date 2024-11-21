@@ -1,15 +1,12 @@
-# Your Name Here
+# Johnavon Jones
 # UWYO COSC 1010
-# Submission Date
-# Lab XX
-# Lab Section: 
-# Sources, people worked with, help given to: 
-# your
-# comments
-# here
+# Submission Date: 11/21/2024
+# Lab 10
+# Lab Section: 12
+# Sources, people worked with, help given to: N/A
+
 
 #import modules you will need 
-
 from hashlib import sha256 
 from pathlib import Path
 
@@ -36,10 +33,29 @@ def get_hash(to_hash):
 
 # - Read in the value stored within `hash`.
 #   - You must use a try and except block.
-
-
+try:
+    Path('hash')
+except FileNotFoundError:
+    print("The file 'hash' does not exist")
+else:
+    hash = Path('hash').read_text()
 # Read in the passwords in `rockyou.txt`.
 # - Again, you need a try-except-else block.
+try:
+    Path('rockyou.txt')
+except FileNotFoundError:
+    print("The file 'rockyou.txt' does not exist")
+else:
+    passwords = Path('rockyou.txt').read_text()
 # Hash each individual password and compare it against the stored hash.
 # - When you find the match, print the plaintext version of the password.
 # - End your loop.
+
+found = False
+for password in passwords.splitlines():
+    if hash == get_hash(password.strip()):
+        print(f'The password is {password}')
+        found = True
+        break
+if found == False:
+    print('Password not found')
